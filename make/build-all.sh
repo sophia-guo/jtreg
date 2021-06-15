@@ -28,10 +28,10 @@
 set -e
 set -u
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 /path/to/jdk/1.8/image" >&2
-    exit 1
-fi
+#if [ "$#" -ne 1 ]; then
+#    echo "Usage: $0 /path/to/jdk/1.8/image" >&2
+#    exit 1
+#fi
 
 if [ ! -d $1 ]; then
     echo "Error: '$1' is not a directory" >&2
@@ -286,6 +286,9 @@ echo "6375e521c1e11d6563d4f25a07ce124ccf8cd171  ${JCOMMANDER_JAR}" | ${SHASUM} -
 
 ## Set version and build numbers to the latest tagged version by default
 TAG_INFO=`get_tag_info`
+if [ "$#" -eq 2 ]; then
+    TAG_INFO="$2"
+fi
 if [ -z ${BUILD_NUMBER:-} ]; then
     BUILD_NUMBER=`echo $TAG_INFO | sed 's/jtreg\([0-9]\.[0-9]\)-\(b[0-9]*\).*/\2/'`
 fi
